@@ -17,13 +17,15 @@ Voici une vue logique des actions possibles:
 
 ![Vue_logique_actions_script](https://user-images.githubusercontent.com/85841056/123432005-30934500-d5ca-11eb-8274-e1dbccfa1c79.png)
 
-Chaque option appellera soit un playbook-ansible soit à un script par exemple “script1.nse” pour nmap d’autres langages pourront être utilisés sans problèmes.
+Chaque option appellera soit un playbook-ansible soit à un script par exemple “script1.nse” pour nmap, d’autres langages pourront être utilisés sans problèmes.
 
-Une fois la tâche exécutée la sortie de résultat sera stocké dans un fichier correspondant par exemple supposons que l’option “Gathering_User_infos”  est sélectionnée, un playbook ansible sera donc exécuté pour récolter des informations concernant les utilisateurs.
-
-Ensuite les gathering facts seront stockés dans le répertoire ./System Directory les données pourront être utilisées pour faire un état des lieu des utilisateurs d’un domaine.
+Une fois la tâche exécutée le résultat sera stocké dans un fichier correspondant.
+Par exemple supposons que l’option “Gathering_User_infos”  est sélectionnée, un playbook ansible sera donc exécuté pour récolter des informations concernant les utilisateurs.
+Ensuite les "gathering_facts" seront stockés dans le répertoire ./System Directory les données pourront être utilisées pour faire un état des lieu des utilisateurs d’un domaine.
 
 Les possibilités sont infinies et surtout personnalisables.
 
-Le projet en est à son début je suis ouvert a toutes propositions d’améliorations sur ce
-concept si vous êtes intéressé bien sur 
+Le projet en est à son début je suis ouvert a toutes propositions, conseils, avis d’améliorations sur ce
+concept si vous êtes intéressé bien sur.
+
+A bientôt !
