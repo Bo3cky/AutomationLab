@@ -11,7 +11,7 @@ SecurityAutomation pour la partie d’administration des tâches de sécurité
 Pour exécuter ces tâches il suffira de sélectionner la partie pertinente pour vos tests.
 
 Bien sûr il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités comme par exemple la mise en place automatisé d’environnement automatisé pour des projets spécifiques via docker et kubernetes.
-L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'utilisateur de pouvoir exécuter une/des tâches général mais aussi spécifique sur n’importe quel aspect d’un SI Systèmes, Réseaux, Sécurité.
+L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'utilisateur de pouvoir exécuter une/des tâches générales mais aussi spécifiques sur n’importe quel aspect d’un SI Systèmes, Réseaux, Sécurité.
 
 Voici une vue logique des actions possibles:
 
