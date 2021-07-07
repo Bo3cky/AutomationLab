@@ -8,7 +8,30 @@ différentes actions via un menu intéractif. """
 import os
 import hashlib
 from getpass import getpass
+import functions 
+import argparse
 
+
+
+
+parser = argparse.ArgumentParser(description='Cet outil permet d\'automatisé plusieurs tâches d\'administration.')
+parser.add_argument('--gip', help="Affiche la coniguration IP de l'hôte", action="store_true")
+parser.add_argument('--menumode', help="Passe en mode menu", action="store_true")
+parser.add_argument('--gmac', help="Affiche les addresses mac de l'hôte", action="store_true")
+parser.add_argument('--netest', help="Test la connectivité avec les nodes", action="store_true")
+
+args = parser.parse_args()
+
+if args.gip:
+  functions.gather_ip()
+elif args.gmac:
+  functions.gather_mac()
+elif args.netest:
+  functions.net_test()
+elif args.menumode:
+  pass
+else:
+  exit
 
 print("Bienvenue dans la console d'automatisation 1.0")
 
@@ -42,7 +65,7 @@ def menu_sec():
 
 ### Demande de mot de passe pour accèder au programme ###
 
-chaine_mot_de_passe = b"automation2021"
+"""chaine_mot_de_passe = b"automation2021"
 mot_de_passe_chiffre = hashlib.sha1(chaine_mot_de_passe).hexdigest()
 verrouille = True
 
@@ -57,7 +80,7 @@ while verrouille:
         verrouille = False
     else:
         print("Mot de passe incorrect")
-print("Mot de passe accepté\n")
+print("Mot de passe accepté\n")"""
 
 ### MENU PRINCIPAL ###
 while True:
@@ -75,9 +98,12 @@ while True:
 
   if choice == 1: ### MENU NETOWRKING ###
     menu_net()
-    choice2 = input("Choisissez une action d'automatisation: ")
+    choice2 = int(input("Choisissez une action d'automatisation: "))
     if choice2 == 1:
-      #do task 1
+      functions.gather_ip()
+    elif choice2 == 2:
+      functions.gather_mac()
+    else:
      pass
   
   elif choice == 2: ### MENU SYSTEM ###
@@ -97,6 +123,5 @@ while True:
     else:
       continue
 
-os.system("pause")
-
+os.system("sleep 2")
 
