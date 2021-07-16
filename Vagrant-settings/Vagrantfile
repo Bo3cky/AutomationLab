@@ -1,1 +1,42 @@
+# Ce fichier permettera de mettre en place l'environnement pour effectuer les tests du programme mataf.py
 
+Vagrant.configure("2") do |config|
+  # Node controler
+  config.vm.define "nodecontroler" do |nodecontroler|
+    nodecontroler.vm.box = "peru/ubuntu-20.04-server-amd64"
+	nodecontroler.vm.box_version = "20210602.01"
+	nodecontroler.vm.hostname = "nodecontroler"
+	nodecontroler.vm.box_url = "peru/ubuntu-20.04-server-amd64"
+	nodecontroler.vm.network :private_network, ip: "192.168.0.10"
+	nodecontroler.vm.provider :virtualbox do |v|
+	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+	  v.customize ["modifyvm", :id, "--memory", 1024]
+	  v.customize ["modifyvm", :id, "--name", "nodecontroler"]
+	  v.customize ["modifyvm", :id, "--cpus", "1"]
+	end
+    config.vm.provision "ssh", type:"shell", inline: <<-SHELL
+    sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+    service ssh restart
+    SHELL
+  end
+
+
+  # node1 and node2
+  numberSrv=2
+  (1..numberSrv).each do |i|
+    config.vm.define "node#{i}" do |node|
+	  node.vm.box = "bento/ubuntu-21.04"
+	  node.vm.hostname = "node#{i}"
+	  node.vm.network "private_network", ip: "192.168.0.1#{i}"
+	  node.vm.provider "virtualbox" do |v|
+	    v.name = "node#{i}"
+		v.memory = 1024
+		v.cpus = 1
+     end
+    config.vm.provision "ssh", type:"shell", inline: <<-SHELL
+    sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+    service ssh restart
+    SHELL
+  end
+ end      
+end
