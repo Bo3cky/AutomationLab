@@ -23,6 +23,6 @@ Ensuite les "gathering_facts" seront stockés dans le répertoire ./System Direc
 Les possibilités sont infinies et surtout personnalisables.
 
 Le projet en est à son début je suis ouvert a toutes propositions, conseils, avis d’améliorations sur ce
-concept si vous êtes intéressé bien sur.
+concept si vous êtes intéressés bien sur.
 
 A bientôt !
