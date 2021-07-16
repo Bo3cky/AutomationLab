@@ -1,0 +1,20 @@
+- name: Contrôle du checksum du fichier/répertoire
+  hosts: all
+  become: yes
+  tasks:
+  
+  - name: Vérification du checksum
+    stat:
+      path: /etc/fichier.conf
+    register: __stat_fichier
+
+  - name: Affichage du checksum
+    debug:   
+      msg: "Le checksum du fichier {{__stat_fichier.stat.path }} : {{ __stat_fichier.stat.checksum }} "
+                 
+  - name: Informations
+    debug:
+      msg: "Les valeurs ont été enregistrées dans le fichier checksum.txt"
+      
+  
+   
