@@ -1,5 +1,3 @@
-Création d’un menu interactif  pour l’automatisation de tâches
-
 L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'utilisateur de pouvoir exécuter une/des tâches spécifique sur n’importe quel aspect d’un SI Systèmes, Réseaux, Sécurité
 
 
