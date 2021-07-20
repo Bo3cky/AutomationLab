@@ -37,7 +37,7 @@ concept si vous êtes intéressés bien sur.
 ### Connaissances
 Avant de commencer quelques prérequis seront nécéssaires afin de bien comprendre les concepts utilisés dans ce projet
 
-  - Etre à l'aise avec la ligne de commande
+  - Être à l'aise avec la ligne de commande
   - Connaître le langage bash
   - Connaître le langage python
   - Connaître la structure de fichier YAML
@@ -45,10 +45,11 @@ Avant de commencer quelques prérequis seront nécéssaires afin de bien compren
   - Disposer des droits d'administrateur(root) sur la machine utilisée
 
 ### Materiel
- Voici la configuration materielle minimale 
+ Voici la configuration materielle recommandée
  
-  - RAM 8Go 
-  - CPU 4coeurs
+  - RAM: 8Go 
+  - CPU: (4coeurs/8threads)
+  - Stockage: HDD/SDD
   
 ## Laboratoire de test
 
@@ -93,6 +94,17 @@ Cette commande permet de configurer et de lancer les VM en s'appuyant sur le con
 
 Le premier lancement sera plus long que les suivants, c'est normal car les images des VM n'ont pas encore été télechargées
 
+Si l'opération se déroule sans problèmes notre laboratoire est prêt a étre utilisé.
+Il est composé de 3 machines:
+  - 1 node-manager 
+  - 2 nodes-clients
+Pour plus de facilité pour l'interaction avec les nodes je vous conseille d'enregistrer les noms d'hôtes des nodes dans le fichier de résolution /etc/hosts
+
+```
+echo "192.168.0.10 node-manager" >> /etc/hosts
+echo "192.168.0.11 node-manager" >> /etc/hosts
+echo "192.168.0.12 node-manager" >> /etc/hosts
+```
 
 
 
