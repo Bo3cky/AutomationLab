@@ -98,6 +98,7 @@ Si l'opération se déroule sans problèmes notre laboratoire est prêt a étre 
 Il est composé de 3 machines:
   - 1 node-manager 
   - 2 nodes-clients
+
 Pour plus de facilité pour l'interaction avec les nodes je vous conseille d'enregistrer les noms d'hôtes des nodes dans le fichier de résolution /etc/hosts
 
 ```
