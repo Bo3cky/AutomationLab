@@ -32,19 +32,27 @@ Les possibilités sont mutiples et personnalisables.
 Le projet en est à son début je suis ouvert a toutes propositions, conseils, avis d’améliorations sur ce
 concept si vous êtes intéressés bien sur.
 
-# Prérequis
+## Prérequis
 
+### Connaissances
 Avant de commencer quelques prérequis seront nécéssaires afin de bien comprendre les concepts utilisés dans ce projet
 
-- Etre à l'aise avec la ligne de commande
-- Connaître le langage bash
-- Connaître le langage python
-- Connaître la structure de fichier YAML
-- Connaitre les bases du fonctionnement d'Ansible
+  - Etre à l'aise avec la ligne de commande
+  - Connaître le langage bash
+  - Connaître le langage python
+  - Connaître la structure de fichier YAML
+  - Connaitre les bases du fonctionnement d'Ansible
+  - Disposer des droits d'administrateur(root) sur la machine utilisée
 
-# Laboratoire de test
+### Materiel
+ Voici la configuration materielle minimale 
+ 
+  - RAM 8Go 
+  - CPU 4coeurs
+  
+## Laboratoire de test
 
-L'architechture pour le test de cet outil a été mise en place a l'aide de Vagarant un programme en ligne de commande pour la création, la gestion, et le management, de machines virtuelles.
+L'architechture pour le test du programme mataf.py a été mise en place a l'aide de l'outil Vagarant, un programme en ligne de commande permettant la création, la gestion, et le management, de machines virtuelles.
 
 Ici les liens concernants la mise en place de Vagarant
   - Pour consulter la [documentation](https://www.vagrantup.com/docs)
@@ -52,5 +60,42 @@ Ici les liens concernants la mise en place de Vagarant
   - Pour le [téléchargement](https://www.vagrantup.com/downloads) de Vagrant. 
 
 Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger vos VM crées par Vagarant.
+  - Pour installer [Virtualbox](https://www.virtualbox.org/wiki/Downloads) 
+  - Pour installer [Vmware Workstation](https://www.vmware.com/fr/products/workstation-player.html)
+
+Une fois notre environnement installé nous devrons le configuré.
+
+## Configuration
+
+Pour notre premeière configuration placer/créer vous dans un repertoire de votre système ou nous initialiseront l'environnement Vagrant.
+  - Création du dossier pour notre environnement
+```
+mkdir ~/Vagrant-lab
+cd ~/Vagrant-lab
+```
+  - Initialistion de l'environnment Vagrant sans spécifier d'image a télécharger
+```
+vagrant init
+```
+
+Un fichier nommé vagrant file a été créer pour définir la configuration de nos VM dès leurs lancement.
+
+Ouvrez un éditeur de texte puis définnissez les paramètres de votre choix
+
+Afin de simplifier le travail un [script](Vagrant-settings/Vagrantfile) est a votre disposition.
+
+Une fois le fichier éditer ouvrez un terminal (Powershell, Bash..)
+Puis entrez la commande suivante
+```
+vagrant up
+```
+Cette commande permet de configurer et de lancer les VM en s'appuyant sur le contenu du fichier vagrantfile.
+
+Le premier lancement sera plus long que les suivants, c'est normal car les images des VM n'ont pas encore été télechargées
+
+
+
+
+
 
 
