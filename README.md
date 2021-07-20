@@ -1,28 +1,56 @@
-L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'utilisateur de pouvoir exécuter une/des tâches spécifique sur n’importe quel aspect d’un SI Systèmes, Réseaux, Sécurité
+# INTRODUCTION
+
+L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'administrateur de pouvoir automatiser une ou plusieurs tâches spécifiques sur les différents aspects d’un SI Systèmes, Réseaux, Sécurité.
 
 
-Ce projet a pour but d'automatiser plusieurs tâches via un menu interactif, il  contiendra plusieurs parties :
+Il est composé en 3 parties :
 NetworkAutomation pour la partie d’administration de tâches réseaux
 SystemAutomation pour la partie d’administration de tâches systèmes
 SecurityAutomation pour la partie d’administration des tâches de sécurité
 
 Pour exécuter ces tâches il suffira de sélectionner la partie pertinente pour vos tests.
 
-Bien sûr il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités comme par exemple la mise en place automatisé d’environnement pour des projets spécifiques via docker et/ou kubernetes.
+il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités.
+
+Cette image n'est pas réprésentatitive des options actuellement mises en place dans l'outil, toutefois il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités.
 
 Voici une vue logique des actions possibles:
 
 ![Vue_logique_actions_script](https://user-images.githubusercontent.com/85841056/123432005-30934500-d5ca-11eb-8274-e1dbccfa1c79.png)
 
-Chaque option appellera soit un playbook-ansible soit à un script par exemple “script1.nse” pour nmap, d’autres langages pourront être utilisés sans problèmes.
+Chaque option appellera playbook-ansible qui sera en charge d'effectuer une lsite de tâches prédéfinies.
+D’autres mécanisme ou langages pourront être implémenter.
 
-Une fois la tâche exécutée le résultat sera stocké dans un fichier correspondant.
-Par exemple supposons que l’option “Gathering_User_infos”  est sélectionnée, un playbook ansible sera donc exécuté pour récolter des informations concernant les utilisateurs.
-Ensuite les "gathering_facts" seront stockés dans le répertoire ./System Directory les données pourront être utilisées pour faire un état des lieux des utilisateurs existants et également reuceuillirleurs attributs.
+Une fois la tâche exécutée le résultat sera stocké dans un répertoire dédier.
 
-Les possibilités sont infinies et surtout personnalisables.
+Par exemple supposons que l’option “Gathering_File_infos”  est sélectionnée, un playbook ansible sera donc exécuté pour récolter des informations concernant le fichier cible.
+
+Ensuite les "gathering_facts" pertinants pour le test seront stockés dans le répertoire ./SystemDirectory les données pourront être utilisées pour faire un compartatif des fichiers existants et également reuceuillir leurs propriété.
+
+Les possibilités sont mutiples et personnalisables.
 
 Le projet en est à son début je suis ouvert a toutes propositions, conseils, avis d’améliorations sur ce
 concept si vous êtes intéressés bien sur.
 
-A bientôt !
+# Prérequis
+
+Avant de commencer quelques prérequis seront nécéssaires afin de bien comprendre les concepts utilisés dans ce projet
+
+- Etre à l'aise avec la ligne de commande
+- Connaître le langage bash
+- Connaître le langage python
+- Connaître la structure de fichier YAML
+- Connaitre les bases du fonctionnement d'Ansible
+
+# Laboratoire de test
+
+L'architechture pour le test de cet outil a été mise en place a l'aide de Vagarant un programme en ligne de commande pour la création, la gestion, et le management, de machines virtuelles.
+
+Ici les liens concernants la mise en place de Vagarant
+  - Pour consulter la [documentation](https://www.vagrantup.com/docs)
+  - Pour [l'installation](https://www.vagrantup.com/docs/installation) du logiciel Vagrant. 
+  - Pour le [téléchargement](https://www.vagrantup.com/downloads) de Vagrant. 
+
+Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger vos VM crées par Vagarant.
+
+Une fois télécharger
