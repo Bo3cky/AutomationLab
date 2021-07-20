@@ -53,4 +53,4 @@ Ici les liens concernants la mise en place de Vagarant
 
 Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger vos VM crées par Vagarant.
 
-Une fois télécharger
+
