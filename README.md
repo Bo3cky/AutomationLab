@@ -118,6 +118,10 @@ echo "192.168.0.10 node-manager" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.11 node1" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 ```
+### Configuration SSH du node-manager
+
+Pour plus de simplicité pour vos tests je vous recommande de créer un clé ssh puis de l'embarquée sur votre profil utilisateur
+
 ## Installation des packages requis
 
 [Téléchargez](#laboratoire-de-test) ce dépot sur votre machine hôte
@@ -127,7 +131,7 @@ Copier le dossier Pyton-Project sur le node manager le mot de passe par défaut 
 scp -rp Python_Project/ vagrant@node-manger:/home/vagrant
 ```
 
-Conecter vous au node-manager via ssh avec l'utilisateur vagrant 
+Conectez vous au node-manager via ssh avec l'utilisateur vagrant 
 ```bash
 ssh vagrant@node-manager
 ```
@@ -158,6 +162,16 @@ Pour vérifier la connectivité avec les node1 et node2 le module ping (module n
 ```
 ansible -i inventaire.ini -m ping all
 ```
+}
+node1 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+node2 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
 
 
 
