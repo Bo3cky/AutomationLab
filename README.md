@@ -4,9 +4,10 @@ L’idée principale de ce projet est d'utiliser les différentes technologies �
 
 
 Il est composé en 3 parties :
-NetworkAutomation pour la partie d’administration de tâches réseaux
-SystemAutomation pour la partie d’administration de tâches systèmes
-SecurityAutomation pour la partie d’administration des tâches de sécurité
+
+- NetworkAutomation pour la partie d’administration de tâches réseaux
+- SystemAutomation pour la partie d’administration de tâches systèmes
+- SecurityAutomation pour la partie d’administration des tâches de sécurité
 
 Pour exécuter ces tâches il suffira de sélectionner la partie pertinente pour vos tests.
 
@@ -120,7 +121,35 @@ echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 ```
 ### Configuration SSH du node-manager
 
-Pour plus de simplicité pour vos tests je vous recommande de créer un clé ssh puis de l'embarquée sur votre profil utilisateur
+Pour plus de simplicité pour vos tests je vous recommande de générer un clé ssh puis de l'embarqué sur votre profil utilisateur
+
+Conectez vous au node-manager via ssh avec l'utilisateur vagrant 
+```bash
+ssh vagrant@node-manager
+```
+
+Générer d'une clé SSH sans passphrase
+```bash
+ssh-keygen -f ~/.ssh/exemple -t rsa -b 4096 -N ""
+```
+
+Copie de la clé publique sur nos node1 et node2
+```bash
+ssh-copy-id -i ~/.ssh/exemple.pub vagrant@node1
+ssh-copy-id -i ~/.ssh/exemple.pub vagrant@node2
+```
+
+Démarrage de l'agent ssh
+``` bash
+eval `ssh-agent`
+```
+
+Ajout de la clé privé à l'agent d'authentification SSH
+```bash
+ssh-add ~/.ssh/exemple
+```
+Il est maintenant possible de s'authentifier directement sur les node1 et node2 sans spécifier de mot de passe
+
 
 ## Installation des packages requis
 
@@ -158,10 +187,12 @@ Ce package servira a modifier des valeurs dans les fichiers YAML lus par ansible
  
 ### Test de connectivité
 
-Pour vérifier la connectivité avec les node1 et node2 le module ping (module natif d'Ansible) est utilisé. 
+Pour vérifier la connectivité et la présence de l'interpréteur python sur les node1 et node2 le module ping (module natif d'Ansible) est utilisé. 
 ```
 ansible -i inventaire.ini -m ping all
 ```
+Voici la réponse attendue
+```json
 }
 node1 | SUCCESS => {
     "changed": false,
@@ -172,6 +203,21 @@ node2 | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
+```
+l'infrastructure est prête a l'emploi
 
+## Exemples d'utilisation
 
+Deux modes d'utilisation possibles pour l'outil mataf.py
 
+- En ligne de commande
+```bash
+# Exemple d'utilisation du module de vérification d'intégrité du fichier sshd_config
+python3 mataf.py -c -f /etc/ssh/sshd_config
+```
+- Via le menu intéractif en selectionnant les options affichées
+```bash
+# Entrer dans le menu depuis la ligne de commande
+python3 mataf.py --menumode
+```
+## Contribution
