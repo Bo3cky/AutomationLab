@@ -120,7 +120,7 @@ echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 ```
 ## Installation des packages requis
 
-[Téléchargez](##Laboratoire-de-test) ce dépot sur votre machine hôte
+[Téléchargez](#laboratoire-de-test) ce dépot sur votre machine hôte
 
 Copier le dossier Pyton-Project sur le node manager le mot de passe par défaut est vagrant
 ```bash
