@@ -66,6 +66,11 @@ Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, Vmw
 
 Une fois notre environnement installé nous devrons le configuré.
 
+Pour télécharger ce dépot:
+```
+git clone https://github.com/Bo3cky/AutomationLab.git
+```
+
 ## Configuration
 
 Pour notre premeière configuration placer/créer vous dans un repertoire de votre système ou nous initialiseront l'environnement Vagrant.
@@ -101,13 +106,52 @@ Il est composé de 3 machines:
 
 Enregistrer les noms d'hôtes des nodes dans le fichier de résolution /etc/hosts
 
+Sur Linux ouvrez un terminal
 ```
-echo "192.168.0.10 node-manager" >> /etc/hosts
-echo "192.168.0.11 node1" >> /etc/hosts
-echo "192.168.0.12 node2" >> /etc/hosts
+sudo echo "192.168.0.10 node-manager" >> /etc/hosts
+sudo echo "192.168.0.11 node1" >> /etc/hosts
+sudo echo "192.168.0.12 node2" >> /etc/hosts
+```
+Sur Windows 10 ouvrez un terminal powershell en tant qu'administrateur
+```
+echo "192.168.0.10 node-manager" >> 'C:\Windows\System32\drivers\etc\hosts'
+echo "192.168.0.11 node1" >> 'C:\Windows\System32\drivers\etc\hosts'
+echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
+```
+## Installation des packages requis
+
+[Téléchargez](##Laboratoire-de-test) ce dépot sur votre machine hôte
+
+Copier le dossier Pyton-Project sur le node manager le mot de passe par défaut est vagrant
+```bash
+scp -rp Python_Project/ vagrant@node-manger:/home/vagrant
 ```
 
+Conecter vous au node-manager via ssh avec l'utilisateur vagrant 
+```bash
+ssh vagrant@node-manager
+```
+Mettre a jour les dépots APT
+```bah
+apt-get update -y && apt-get upgarde -y
+```
+Installation d'ansible
 
+```bash
+apt-get install ansible
+```
+### Python et pip
+
+Mise a jour de pip
+```
+pip install --upgrade pip
+```
+Installation du package [ruamel.yaml](https://github.com/commx/ruamel-yaml)
+```
+pip install ruamel.yaml
+```
+Ce package servira a modifier des valeurs dans les fichiers YAML lus par ansible
+ 
 
 
 
