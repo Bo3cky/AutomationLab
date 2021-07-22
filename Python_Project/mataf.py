@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Ce programme représente la pièce centrale de l'application il permettera de séléctionner les
-différentes actions via un menu intéractif ou en ligne de commande. """
+différentes actions via un menu intéractif. """
 
 """Nous aurons besoin d'importer quelques modules pour rendre ce programme foctionnel:
     - Le module "getpass" permettant l'implémentation de mot de passe
@@ -8,20 +8,22 @@ différentes actions via un menu intéractif ou en ligne de commande. """
     - Le module "functions" permettant l'utilisation de nos fonctions pour éxécuter la tâche sélectionnée
     - Le module "argpase" permmettant d'utiliser notre programme en ligne de commande avec différentes options """
 
+import os
 import hashlib
 from getpass import getpass
-import functions 
+import functions
 import argparse
+import sys
+import subprocess
 
-
-### CREATION D'UNE FONCTION POUR LA DEMANDE DE MOT DE PASSE ### 
-
+### Demande de mot de passe pour accèder au programme sauf pour le menu d'aide ###
+"""
 def passwd():
   chaine_mot_de_passe = b"exemple"
 
-  """A titre d'exemple le mot de passe est affiché en clair, cependant pour un environnement en production
+  """"""A titre d'exemple le mot de passe est affiché en clair, cependant pour un environnement en production
    évitez de renseigner le mot de passe avec cette méthode, choisissez
-   un autre moyen (ex: fichier crypté contenant le mot de passe, ect...)"""
+   un autre moyen (ex: fichier crypté contenant le mot de passe, ect...)""""""
   mot_de_passe_chiffre = hashlib.sha1(chaine_mot_de_passe).hexdigest()
   verrouille = True
   essais = 3
@@ -31,7 +33,7 @@ def passwd():
      entre = getpass("Veuillez entrez le mot de passe pour dévérouiller le programme: ") # automation2021
     # On encode la saisie pour avoir un type bytes
      entre = entre.encode()
-    
+
      entre_chiffre = hashlib.sha1(entre).hexdigest()
      if entre_chiffre == mot_de_passe_chiffre:
         verrouille = False
@@ -43,40 +45,42 @@ def passwd():
           print("Trop de tentatives effectué rééssayez dans 5 min")
           exit(0)
   print("Mot de passe accepté\n")
-
-### CREATION DES ARGUMENTS POUR L'UTILISATION EN LIGNE DE COMMANDE ### 
-
+"""
 parser = argparse.ArgumentParser(description='Cet outil permet d\'automatiser plusieurs tâches d\'administration.')
-parser.add_argument('--gip', help="Affiche la coniguration IP de l'hôte", action="store_true")
-parser.add_argument('--menumode', help="Passe en mode menu", action="store_true")
-parser.add_argument('--gmac', help="Affiche les addresses mac de l'hôte", action="store_true")
-parser.add_argument('--depkey', help="Déploiement de clé ssh sur les nodes", action="store_true")
-parser.add_argument('--checksum', help="Permet de vérifier l'intégrité de fichiers", action="store_true")
-
+parser.add_argument("VAR", help="ajout d'une variable" ,type=str, nargs="?")
+#parser.add_argument('-i','--gip', help="Affiche la coniguration IP de l'hôte", action="store_true")
+#parser.add_argument('-m','--gmac', help="Affiche les addresses mac de l'hôte", action="store_true")
+parser.add_argument('-U','--user', help="Utilisateur cible", action="store_true")
+parser.add_argument('-dk','--depkey', help="Déploiement de clé ssh sur les nodes", action="store_true")
+parser.add_argument('-c','--checksum', help="Permet de vérifier l'intégrité de fichiers", action="store_true")
+parser.add_argument("-f","--file", help="specifiez un fichier que vous souhaitez vérifier" , action="store_true")
+parser.add_argument("-M","--menumode", help="Passez en mode menu" , action="store_true")
 args = parser.parse_args()
-if args.gip:
-  passwd()
-  functions.gather_ip()
-  exit(0)
-elif args.gmac:
-  passwd()
-  functions.gather_mac()
-  exit(0)
-elif args.depkey:
-  passwd()
-  functions.ssh_deploy_key()
-  exit(0)
-elif args.checksum:
-  passwd()
-  functions.gathering_file()
-  exit(0)
+#if args.gip:
+#  passwd()
+#  functions.gather_ip()
+#  exit(0)
+#elif args.gmac:
+#  passwd()
+#  functions.gather_mac()
+#  exit(0)
+if args.depkey and args.user:
+#  passwd()
+    var_selected_ssh = sys.argv[3]
+    functions.set_state_ssh(var_selected_ssh)
+    functions.ssh_deploy_key()
+    exit(0)
+elif args.checksum and args.file:
+#  passwd()
+    var_selected = sys.argv[3]
+    functions.set_state(var_selected)
+    functions.gathering_file()
+    exit(0)
 elif args.menumode:
-  passwd()
+#  passwd()
   pass
 else:
-  exit
-
-### CREATION DES FONCTIONS POUR L'AFFICHAGE DES DIFFERENTS MENUS ### 
+  exit(0)
 
 print("Bienvenue dans la console d'automatisation 1.0")
 
@@ -111,8 +115,9 @@ def menu_sec():
 
 
 ### MENU PRINCIPAL ###
-passwd()
+# passwd()
 while True:
+
   menu()
   while True:
     """ prévention d'erreur de frappe pour la sélection d'un menu d'automatisation,
@@ -125,8 +130,7 @@ while True:
     else:
         break
 
-### MENU NETOWRKING ###
-  if choice == 1:
+  if choice == 1: ### MENU NETOWRKING ###
     menu_net()
     choice2 = int(input("Choisissez une action d'automatisation: "))
     if choice2 == 1:
@@ -134,44 +138,31 @@ while True:
     elif choice2 == 2:
       functions.gather_mac()
     elif choice2 == 3:
-      functions.ssh_deploy_key()
+      user = str(input("Sur quel utilsateur voulez vous déployer la clé SSH?: "))
+      subprocess.run(args="./mataf.py -dk -U {}".format(user), shell=True)
     else:
      pass
 
-### MENU SYSTEM ###
-  elif choice == 2: 
+  elif choice == 2: ### MENU SYSTEM ###
     menu_sys()
-    choice3 = input("Choisissez une action d'automatisation: ")
-    #if choice3 == 1:
-     # functions.gather_ip()
+    choice3 = int(input("Choisissez une action d'automatisation: "))
     if choice3 == 2:
-      functions.gathering_file()
-    #elif choice3 == 3:
-     # functions.ssh_deploy_key()
-    else:
-     pass
+      file = str(input("Quel fichier voulez vous vérifier?: "))
+      subprocess.run(args="./mataf.py -c -f {}".format(file), shell=True)
 
-### MENU SECURITY ###  
-  elif choice == 3: 
+  elif choice == 3: ### MENU SECURITY ###
     menu_sec()
     choice4 = input("Choisissez une action d'automatisation: ")
-    if choice4 == 1:
-     pass 
-    elif choice4 == 2:
-     pass 
-    elif choice4 == 3:
-     pass 
-    else:
-     pass
-### EXIT ###
-  elif choice == 4:
-    answer = input("Voulez vous quitter ce programme? (o/n): ")
+
+  elif choice == 4: ### EXIT ###
+    answer = input("Voulez vous quitter ce programme? (y/n): ")
     answer = str(answer)
-    if answer == "o":
+    if answer == "y" :
       print("\nMerci d'avoir utilisé ce programme ! \nA bientôt !")
       break
     else:
       continue
+
 
 
 
