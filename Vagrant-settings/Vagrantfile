@@ -2,7 +2,7 @@
 
 Vagrant.configure("2") do |config|
   # Node controler
-  config.vm.define "node-manager" do |nodemanager|
+  config.vm.define "nodemanager" do |nodemanager|
     nodemanager.vm.box = "peru/ubuntu-20.04-server-amd64"
 	nodemanager.vm.box_version = "20210602.01"
 	nodemanager.vm.hostname = "node-manager"
