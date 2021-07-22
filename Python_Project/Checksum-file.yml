@@ -2,19 +2,17 @@
   hosts: all
   become: yes
   tasks:
-  
   - name: Vérification du checksum
     stat:
-      path: /etc/fichier.conf
-    register: __stat_fichier
-
+      path: /etc/hosts
+    register: sf
   - name: Affichage du checksum
-    debug:   
-      msg: "Le checksum du fichier {{__stat_fichier.stat.path }} : {{ __stat_fichier.stat.checksum }} "
-                 
+    debug:
+      msg: 'Le checksum du fichier {{ sf.stat.path }} : {{ sf.stat.checksum }}'
   - name: Informations
     debug:
-      msg: "Les valeurs ont été enregistrées dans le fichier checksum.txt"
+      msg: Les valeurs ont été enregistrées dans le fichier checksum.txt
+
       
   
    
