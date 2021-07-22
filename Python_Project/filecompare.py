@@ -37,8 +37,7 @@ def file_analysis():
   if comparatif:
     print("\nl'intégrité du fichier est valide")
   else:
-    print("\nAttention! Un ou plusieurs fichiers on été modifiés!\n")  
-
+    print("\nAttention! Un ou plusieurs fichiers on été modifiés!\n")
 
   if comparatif is False:
     with open('checksum2.txt', 'r') as c2:
