@@ -2,13 +2,13 @@
 
 Vagrant.configure("2") do |config|
   # Node controler
-  config.vm.define "nodemanager" do |nodemanager|
-    nodecontroler.vm.box = "peru/ubuntu-20.04-server-amd64"
-	nodecontroler.vm.box_version = "20210602.01"
-	nodecontroler.vm.hostname = "node-manager"
-	nodecontroler.vm.box_url = "peru/ubuntu-20.04-server-amd64"
-	nodecontroler.vm.network :private_network, ip: "192.168.0.10"
-	nodecontroler.vm.provider :virtualbox do |v|
+  config.vm.define "node-manager" do |nodemanager|
+    nodemanager.vm.box = "peru/ubuntu-20.04-server-amd64"
+	nodemanager.vm.box_version = "20210602.01"
+	nodemanager.vm.hostname = "node-manager"
+	nodemanager.vm.box_url = "peru/ubuntu-20.04-server-amd64"
+	nodemanager.vm.network :private_network, ip: "192.168.0.10"
+	nodemanager.vm.provider :virtualbox do |v|
 	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 	  v.customize ["modifyvm", :id, "--memory", 1024]
 	  v.customize ["modifyvm", :id, "--name", "node-manager"]
