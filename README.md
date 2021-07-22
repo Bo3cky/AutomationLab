@@ -9,31 +9,18 @@ Il est composé en 3 parties :
 - SystemAutomation pour la partie d’administration de tâches systèmes
 - SecurityAutomation pour la partie d’administration des tâches de sécurité
 
-Pour exécuter ces tâches il suffira de sélectionner la partie pertinente pour vos tests.
-
-il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités.
-
 Cette image n'est pas réprésentatitive des options actuellement mises en place dans l'outil, toutefois il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités.
 
 Voici une vue logique des actions possibles:
 
 ![Vue_logique_actions_script](https://user-images.githubusercontent.com/85841056/123432005-30934500-d5ca-11eb-8274-e1dbccfa1c79.png)
 
-Chaque option appellera playbook-ansible qui sera en charge d'effectuer une lsite de tâches prédéfinies.
+Chaque option s'appuient sur plusieurs processus (playbook-ansible, script bash) afin d'effectuer une liste de tâches prédéfinies.
 D’autres mécanisme ou langages pourront être implémenter.
 
-Une fois la tâche exécutée le résultat sera stocké dans un répertoire dédier.
-
-Par exemple supposons que l’option “Gathering_File_infos”  est sélectionnée, un playbook ansible sera donc exécuté pour récolter des informations concernant le fichier cible.
-
-Ensuite les "gathering_facts" pertinants pour le test seront stockés dans le répertoire ./SystemDirectory les données pourront être utilisées pour faire un compartatif des fichiers existants et également reuceuillir leurs propriété.
+Une fois la tâche exécutée le résultat sera stocké dans un répertoire dédié.
 
 Les possibilités sont mutiples et personnalisables.
-
-Le projet en est à son début je suis ouvert a toutes propositions, conseils, avis d’améliorations sur ce
-concept si vous êtes intéressés bien sur.
-
-## Prérequis
 
 ### Connaissances
 Avant de commencer quelques prérequis seront nécéssaires afin de bien comprendre les concepts utilisés dans ce projet
@@ -109,13 +96,14 @@ Enregistrer les noms d'hôtes des nodes dans le fichier de résolution /etc/host
 
 Sur Linux ouvrez un terminal
 ```bash
-sudo echo "192.168.0.10 node-manager" >> /etc/hosts
+sudo su -
+sudo echo "192.168.0.10 nodemanager" >> /etc/hosts
 sudo echo "192.168.0.11 node1" >> /etc/hosts
 sudo echo "192.168.0.12 node2" >> /etc/hosts
 ```
 Sur Windows 10 ouvrez un terminal powershell en tant qu'administrateur
 ```powershell
-echo "192.168.0.10 node-manager" >> 'C:\Windows\System32\drivers\etc\hosts'
+echo "192.168.0.10 nodemanager" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.11 node1" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 ```
@@ -125,21 +113,27 @@ Pour plus de simplicité pour vos tests je vous recommande de générer un clé 
 
 Conectez vous au node-manager via ssh avec l'utilisateur vagrant 
 ```bash
-ssh vagrant@node-manager
+ssh vagrant@nodemanager
+```
+Ajouter les nodes au fichier hosts
+```bash
+sudo su -
+sudo echo "192.168.0.11 node1" >> /etc/hosts
+sudo echo "192.168.0.12 node2" >> /etc/hosts
 ```
 
 Générer d'une clé SSH sans passphrase
 ```bash
-ssh-keygen -f ~/.ssh/exemple -t rsa -b 4096 -N ""
+ssh-keygen -f ~/.ssh/vagrant -t rsa -b 4096 -N ""
 ```
 
 Copie de la clé publique sur nos node1 et node2
 ```bash
-ssh-copy-id -i ~/.ssh/exemple.pub vagrant@node1
-ssh-copy-id -i ~/.ssh/exemple.pub vagrant@node2
+ssh-copy-id -i ~/.ssh/vagrant.pub vagrant@node1
+ssh-copy-id -i ~/.ssh/vagrant.pub vagrant@node2
 ```
 
-Démarrage de l'agent ssh
+Démarrage de l'agent ssh (si inactif)
 ``` bash
 eval `ssh-agent`
 ```
@@ -153,31 +147,32 @@ Il est maintenant possible de s'authentifier directement sur les node1 et node2 
 
 ## Installation des packages requis
 
+### A changer ###
 [Téléchargez](#laboratoire-de-test) ce dépot sur votre machine hôte
 
-Copier le dossier Pyton-Project sur le node manager le mot de passe par défaut est vagrant
+Copier le dossier Python-Project sur le node manager le mot de passe par défaut est vagrant.
 ```bash
-scp -rp Python_Project/ vagrant@node-manger:/home/vagrant
+scp -rp Python_Project/ vagrant@nodemanger:/home/vagrant
 ```
 
 Conectez vous au node-manager via ssh avec l'utilisateur vagrant 
 ```bash
-ssh vagrant@node-manager
+ssh vagrant@nodemanager
 ```
 Mettre a jour les dépots APT
 ```bah
-apt-get update -y && apt-get upgarde -y
+sudo apt-get update -y && apt-get upgarde -y
 ```
 Installation d'ansible
 
 ```bash
-apt-get install ansible
+sudo apt-get install ansible -y
 ```
 ### Python et pip
 
-Mise a jour de pip
+Installation et mise a jour de pip
 ```bash
-pip install --upgrade pip
+sudo apt-get install pip -y && pip install --upgrade pip
 ```
 Installation du package [ruamel.yaml](https://github.com/commx/ruamel-yaml)
 ```bash
@@ -193,13 +188,17 @@ ansible -i inventaire.ini -m ping all
 ```
 Voici la réponse attendue
 ```json
-}
-node1 | SUCCESS => {
+node2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
     "changed": false,
     "ping": "pong"
 }
-
-node2 | SUCCESS => {
+node1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
     "changed": false,
     "ping": "pong"
 }
@@ -220,4 +219,15 @@ python3 mataf.py -c -f /etc/ssh/sshd_config
 # Entrer dans le menu depuis la ligne de commande
 python3 mataf.py --menumode
 ```
+Puis dirigez vous en selectionnant les numéros correspondants au menu d'automatisation désiré.
+
 ## Contribution
+
+D'autres idées de fonctionnalités pourront êtres ajouté comme:
+ - Scan de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
+ - Création/déploiement de certificats  
+Et bien d'autre encore 
+
+Si ce projet vous intérresse, soyez libre de proposer des améliorations, de donner des conseils, ou même d'apporter votre contribution à ce programme.
+
+A bientôt Sur GitHub!
