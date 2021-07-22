@@ -11,25 +11,21 @@
       force: yes
     delegate_to: localhost
     run_once: yes
-
-  - name: Création de l'utilisateur admin1
+  - name: Creation de l'utilisateur helene
     user:
-      name: admin1
+      name: helene
       shell: /bin/bash
       groups: sudo
       append: yes
       password: "{{ 'password' | password_hash('sha512') }}"
     become: yes
-
-  - name: Ajouter admin1 aux sudoers
+  - name: Ajout de l'utilisateur 'helene' aux sudoers
     copy:
-      dest: "/etc/sudoers.d/admin1"
-      content: "devops ALL=(ALL) NOPASSWD: ALL"
+      dest: /etc/sudoers.d/helene
+      content: 'helene ALL=(ALL) NOPASSWD: ALL'
     become: yes
-
   - name: Déploiement de la clé ssh
     authorized_key:
-      user: admin1
+      user: helene
       key: "{{ lookup('file', '/home/vagrant/vagrant.pub') }}"
     become: yes
-   
