@@ -2,13 +2,14 @@
 """ Ce programme représente la pièce centrale de l'application il permettera de séléctionner les
 différentes actions via un menu intéractif. """
 
-"""Nous aurons besoin d'importer quelques modules pour rendre ce programme foctionnel:
+"""Quelques modules seront nécéssaires pour rendre ce programme foctionnel:
     - Le module "getpass" permettant l'implémentation de mot de passe
     - Le module "hashlib" permettant l'implémentation du chiffrement de mots de passe
     - Le module "functions" permettant l'utilisation de nos fonctions pour éxécuter la tâche sélectionnée
-    - Le module "argpase" permmettant d'utiliser notre programme en ligne de commande avec différentes options """
-
-import os
+    - Le module "argpase" permmettant d'utiliser notre programme en ligne de commande avec différentes options 
+    - Le module "sys" permmettant d'intéragir avec les entrées et les sorties du système 
+    - Le module "subprocess" permmettant d'éxcuter des commandes sur le système """
+    
 import hashlib
 from getpass import getpass
 import functions
@@ -16,14 +17,14 @@ import argparse
 import sys
 import subprocess
 
-### Demande de mot de passe pour accèder au programme sauf pour le menu d'aide ###
+                    #### DEMANDE DE MOT DE PASSE POUR L'ACCES AU PROGRAMME ####
 """
 def passwd():
   chaine_mot_de_passe = b"exemple"
 
-  """"""A titre d'exemple le mot de passe est affiché en clair, cependant pour un environnement en production
+  """"""A titre d'exemple le mot de passe est affiché en clair, dans un environnement en production
    évitez de renseigner le mot de passe avec cette méthode, choisissez
-   un autre moyen (ex: fichier crypté contenant le mot de passe, ect...)""""""
+   un autre moyen (ex: fichier crypté contenant le mot de passe...)""""""
   mot_de_passe_chiffre = hashlib.sha1(chaine_mot_de_passe).hexdigest()
   verrouille = True
   essais = 3
@@ -46,6 +47,9 @@ def passwd():
           exit(0)
   print("Mot de passe accepté\n")
 """
+
+                                        #### DEFINITION DES ARGUMENTS ####
+    
 parser = argparse.ArgumentParser(description='Cet outil permet d\'automatiser plusieurs tâches d\'administration.')
 parser.add_argument("VAR", help="ajout d'une variable" ,type=str, nargs="?")
 #parser.add_argument('-i','--gip', help="Affiche la coniguration IP de l'hôte", action="store_true")
@@ -82,6 +86,8 @@ elif args.menumode:
 else:
   exit(0)
 
+                                        #### DEFINITION DES MENUS ####
+    
 print("Bienvenue dans la console d'automatisation 1.0")
 
 
@@ -114,7 +120,7 @@ def menu_sec():
 
 
 
-### MENU PRINCIPAL ###
+
 # passwd()
 while True:
 
@@ -129,8 +135,8 @@ while True:
      print("\nVeuillez entrer un chiffre")
     else:
         break
-
-  if choice == 1: ### MENU NETOWRKING ###
+                                    #### CHOICES IN MENU NETOWRKING ####
+  if choice == 1: 
     menu_net()
     choice2 = int(input("Choisissez une action d'automatisation: "))
     if choice2 == 1:
@@ -142,19 +148,21 @@ while True:
       subprocess.run(args="./mataf.py -dk -U {}".format(user), shell=True)
     else:
      pass
-
-  elif choice == 2: ### MENU SYSTEM ###
+                                    #### CHOICES IN MENU SYSTEM ####
+  elif choice == 2: 
     menu_sys()
     choice3 = int(input("Choisissez une action d'automatisation: "))
     if choice3 == 2:
       file = str(input("Quel fichier voulez vous vérifier?: "))
       subprocess.run(args="./mataf.py -c -f {}".format(file), shell=True)
 
-  elif choice == 3: ### MENU SECURITY ###
+                                    #### CHOICES IN MENU SYSTEM ####
+  elif choice == 3: 
     menu_sec()
     choice4 = input("Choisissez une action d'automatisation: ")
 
-  elif choice == 4: ### EXIT ###
+                                        #### EXIT ####
+  elif choice == 4: 
     answer = input("Voulez vous quitter ce programme? (y/n): ")
     answer = str(answer)
     if answer == "y" :
