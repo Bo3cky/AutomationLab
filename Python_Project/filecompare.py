@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-""" module permettant de comparer deux fichiers """
+""" Module permettant de copier et comparer deux fichiers """
 
 import filecmp
 import shutil
