@@ -1,16 +1,5 @@
 #!/bin/bash
 
-############################################################
-#
-#  Description : déploiement à la volée de conteneur docker
-#
-#  Auteur: Xavier
-#
-#  Modifié par: Bo3cky
-#
-#  Date de modification: 20/07/2021
-###########################################################
-
 
 # Functions #########################################################
 
