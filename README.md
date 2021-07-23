@@ -9,7 +9,7 @@ le programme [mataf.py](https://github.com/Bo3cky/AutomationLab/blob/main/Python
 - SystemAutomation pour la partie d’administration de tâches systèmes
 - SecurityAutomation pour la partie d’administration des tâches de sécurité
 
-Cette image n'est pas réprésentatitive des options actuellement mises en place dans l'outil.
+Cette image n'est pas réprésentative des options actuellement mises en place dans l'outil.
 
 Voici une vue logique des actions possibles:
 
@@ -32,7 +32,7 @@ Avant de commencer quelques prérequis seront nécéssaires afin de bien compren
   - Être à l'aise avec la ligne de commande est un plus
 
 ### Materiel
- Voici la configuration materielle recommandée pour l'installation du laboratoire de tests
+ Voici la configuration matérielle recommandée pour l'installation du laboratoire de tests
  
   - RAM: 8Go 
   - CPU: (4coeurs/8threads)
@@ -40,14 +40,14 @@ Avant de commencer quelques prérequis seront nécéssaires afin de bien compren
  
 ## Laboratoire de test
 
-L'architechture mise en place pour le test du programme mataf.py a été construite à l'aide de l'outil Vagarant, un programme en ligne de commande permettant la création, la gestion, et le management, de machines virtuelles.
+L'architecture mise en place pour le test du programme mataf.py a été construite à l'aide de l'outil Vagrant, un programme en ligne de commande permettant la création, la gestion, et le management, de machines virtuelles.
 
-Ici les liens concernants la documentation et l'installation de Vagarant
+Ici les liens concernants la documentation et l'installation de Vagrant
   - Pour consulter la [documentation](https://www.vagrantup.com/docs)
   - Pour [l'installation](https://www.vagrantup.com/docs/installation) du logiciel Vagrant. 
   - Pour le [téléchargement](https://www.vagrantup.com/downloads) de Vagrant. 
 
-Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger les VM crées par Vagarant.
+Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger les VM crées par Vagrant.
   - Pour installer [Virtualbox](https://www.virtualbox.org/wiki/Downloads) 
   - Pour installer [Vmware Workstation](https://www.vmware.com/fr/products/workstation-player.html)
 
@@ -55,8 +55,6 @@ Une fois notre environnement installé il devra être configuré.
 
 
 ## Configuration
-
-Pour notre premeière configuration placer/créer vous dans un repertoire de votre système ou nous initialiseront l'environnement Vagrant
 
 Pour télécharger ce dépot:
 ```bash
@@ -99,9 +97,9 @@ echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 
 ### Configuration SSH du node-manager
 
-Pour plus de simplicité pour vos tests je vous recommande de générer un clé ssh puis de l'embarqué sur votre profil utilisateur
+Pour plus de simplicité pour vos tests je vous recommande de générer un clé ssh puis de l'embarqué sur votre agent-ssh
 
-Tout d'abord assurez vous que OpenSSH est installé sur votre machine:
+Tout d'abord assurez vous que OpenSSH est installé sur votre machine hôte:
 - Pour [Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
 - Pour [Linux]
 ```bash
@@ -110,8 +108,8 @@ sudo apt-get install openssh-server
 
 Conectez vous au node-manager via ssh
 Identifiants:
-  - Utilisateur: vagarant
-  - Mot de passe: vagarant
+  - Utilisateur: vagrant
+  - Mot de passe: vagrant
 ```bash
 ssh vagrant@nodemanager
 ```
@@ -145,11 +143,9 @@ ssh-add ~/.ssh/exemple
 ```
 Il est maintenant possible de s'authentifier directement sur les nodes-clients sans spécifier de mot de passe
 
-
 ## Installation des packages requis
 
-Sur votre machine hôte
-Copier le dossier Python-Project sur le node-manager
+Sur votre machine hôte copiez le dossier Python-Project sur le node-manager
 ```bash
 scp -rp Python_Project/ vagrant@nodemanger:/home/vagrant
 ```
@@ -181,7 +177,7 @@ Ce package servira a modifier des valeurs dans les fichiers YAML lus par ansible
  
 ### Test de connectivité
 
-Pour vérifier la connectivité et la présence de l'interpréteur python sur les node-clients e module ping (module natif d'Ansible) est utilisé. 
+Pour vérifier la connectivité et la présence de l'interpréteur python sur les nodes-clients le module ping (module natif d'Ansible) est utilisé. 
 ```
 ansible -i inventaire.ini -m ping all
 ```
@@ -202,7 +198,7 @@ node1 | SUCCESS => {
     "ping": "pong"
 }
 ```
-l'infrastructure est prête a l'emploi
+l'infrastructure est prête à l'emploi
 
 ## Exemples d'utilisation
 
@@ -227,11 +223,11 @@ Implémentation d'un(e) assistant(e) vocal dans le programme mataf.py (lancement
 
 ## Contribution
 
-D'autres idées de fonctionnalités pourront êtres ajouté comme:
- - Scan de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
+D'autres fonctionnalités pourront êtres ajoutées comme:
+ - Le Scan de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
  - Création/déploiement de certificats  
  
-Les possibilités sont mutiples et personnalisables la seule limite sera votre imagination.
+Les possibilités sont multiples et personnalisables la seule limite sera votre imagination.
 
 Si ce projet vous intérresse, soyez libre de proposer des améliorations, de donner des conseils, ou même d'apporter votre contribution à ce programme.
 
