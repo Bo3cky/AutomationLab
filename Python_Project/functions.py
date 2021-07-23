@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" Ce programme contient toutes les fonctions qui seront appelées par le programme Menu.py"""
+""" Ce programme contient toutes les fonctions qui seront appelées par le programme mataf.py"""
+
 import os
 import subprocess
 import platform
@@ -7,9 +8,10 @@ from filecompare import file_analysis
 import ruamel.yaml
 import filecmp
 import sys
+      
 
-### FONCTION DE REDIRECTION ###
-
+OS = platform.system()
+                                     #### FONCTIONS DE REDIRECTION VERS LES REPERTOIRES DEDIES ####
 def net_redirect():
       state = sys.argv[3]
       task = subprocess.run(args="sudo cp /home/vagrant/vagrant  /home/vagrant/{}.copy".format(state), shell= True)
@@ -33,8 +35,8 @@ def sys_redirect():
       else:
          print("la redirection a échouée")
 
-OS = platform.system()
-### FONCTIONS DU MENU NETWORK_AUTOAMTION ###
+
+                              #### FONCTIONS DU MENU NETWORK_AUTOAMTION ####
 def gather_ip():
     if OS == "Windows":
       print(subprocess.run(args="ipconfig /all", shell=True))
@@ -65,7 +67,8 @@ def set_state_ssh(state):
     with open (file_name, "w") as Cf:
       ruamel.yaml.dump(doc, Cf, allow_unicode= True, Dumper=ruamel.yaml.RoundTripDumper)
       
-### FONCTIONS DU MENU SYSTEM_AUTOAMTION ###
+                                    
+                              #### FONCTIONS DU MENU SYSTEM_AUTOAMTION ####
 def set_state(state):
     file_name = "Checksum-file.yml"
     with open(file_name) as Cf:
@@ -80,5 +83,6 @@ def gathering_file():
     sys_redirect()
     exit(0)
 
-### FONCTIONS DU MENU SECURITY_AUTOAMTION ###
+                               #### FONCTIONS DU MENU SECURITY_AUTOAMTION ####
+                                          #******(COMING SOON)******#
 
