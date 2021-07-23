@@ -220,10 +220,10 @@ python3 mataf.py --menumode
 ```
 Puis dirigez vous en selectionnant les numéros correspondants au menu d'automatisation désiré.
 
-## A venir
-Mise en place d'un laboratoire de test avec Docker géré par un script BASH voir plus en détails [ici]https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project
+## A venir...
+Mise en place d'un laboratoire de test avec docker géré par un script bash voir plus en détails [ici](https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project)
 
-[Auteur du script]https://www.youtube.com/channel/UCs_AZuYXi6NA9tkdbhjItHQ
+Implémentation d'un(e) assistant(e) vocal dans le programme mataf.py (lancement de tâches par commande vocal ...)
 
 ## Contribution
 
