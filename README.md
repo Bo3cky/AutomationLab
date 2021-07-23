@@ -218,15 +218,16 @@ python3 mataf.py --menumode
 Puis dirigez vous en selectionnant les numéros correspondants au menu d'automatisation désiré.
 
 ## A venir...
-Mise en place d'un laboratoire de test avec docker géré par un script bash voir plus en détails [ici](https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project)
+Mise en place d'un laboratoire de test avec docker géré par un script bash.
+Voir plus en détails [ici](https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project)
 
-Implémentation d'un(e) assistant(e) vocal dans le programme mataf.py (lancement de tâches par commande vocal ...)
+Implémentation d'une assistance vocale dans le programme mataf.py (lancement et planification de tâches par commandes vocales ...)
 
-## Contribution
+## Contribuer à MATAF
 
-D'autres fonctionnalités pourront êtres ajoutées comme:
- - Le Scan de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
- - Création/déploiement de certificats  
+D'autres fonctionnalités pourront être ajoutées comme:
+ - Mappage de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
+ - Création/déploiement de certificats de sécurité 
  
 Les possibilités sont multiples et personnalisables la seule limite sera votre imagination.
 
