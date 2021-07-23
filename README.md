@@ -106,7 +106,8 @@ Tout d'abord assurez vous que OpenSSH est installé sur votre machine hôte:
 sudo apt-get install openssh-server
 ```
 
-Conectez vous au node-manager via ssh
+Conectez vous au node-manager via ssh.
+
 Identifiants:
   - Utilisateur: vagrant
   - Mot de passe: vagrant
@@ -114,14 +115,14 @@ Identifiants:
 ssh vagrant@nodemanager
 ```
 
-Ajouter les nodes-clients au fichier hosts
+Ajouter les nodes-clients au fichier hosts.
 ```bash
 sudo su -
 sudo echo "192.168.0.11 node1" >> /etc/hosts
 sudo echo "192.168.0.12 node2" >> /etc/hosts
 ```
 
-Générer d'une clé SSH sans passphrase (ou avec comme vous voulez)
+Générer d'une clé SSH sans passphrase (ou avec comme vous voulez).
 ```bash
 ssh-keygen -f ~/.ssh/vagrant -t rsa -b 4096 -N ""
 ```
