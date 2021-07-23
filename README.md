@@ -1,84 +1,73 @@
-# INTRODUCTION
+# PRESENTATION
 
-L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'administrateur de pouvoir automatiser une ou plusieurs tâches spécifiques sur les différents aspects d’un SI Systèmes, Réseaux, Sécurité.
+L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'administrateur de pouvoir automatiser une ou plusieurs tâches spécifiques sur différents aspects d’un SI Systèmes, Réseaux, Sécurité.
 
 
-Il est composé en 3 parties :
+le programme [mataf.py](https://github.com/Bo3cky/AutomationLab/blob/main/Python_Project/mataf.py) 3 parties :
 
 - NetworkAutomation pour la partie d’administration de tâches réseaux
 - SystemAutomation pour la partie d’administration de tâches systèmes
 - SecurityAutomation pour la partie d’administration des tâches de sécurité
 
-Cette image n'est pas réprésentatitive des options actuellement mises en place dans l'outil, toutefois il sera tout à fait possible d’étoffer le projet en ajoutant d'autres fonctionnalités.
+Cette image n'est pas réprésentatitive des options actuellement mises en place dans l'outil.
 
 Voici une vue logique des actions possibles:
 
-![Vue_logique_actions_script](https://user-images.githubusercontent.com/85841056/123432005-30934500-d5ca-11eb-8274-e1dbccfa1c79.png)
+![IMAGE1](https://github.com/Bo3cky/AutomationLab/blob/main/Images/Vue_logique_actions_script.png)
 
-Chaque option s'appuient sur plusieurs processus (playbook-ansible, script bash) afin d'effectuer une liste de tâches prédéfinies.
-D’autres mécanisme ou langages pourront être implémenter.
+Chacune des options s'appuient sur plusieurs processus (playbook-ansible, script bash) afin d'effectuer une liste de tâches prédéfinies.
+D’autres mécanismes ou langages de programmation pourront être implémentés.
 
 Une fois la tâche exécutée le résultat sera stocké dans un répertoire dédié.
 
-Les possibilités sont mutiples et personnalisables.
 
 ### Connaissances
 Avant de commencer quelques prérequis seront nécéssaires afin de bien comprendre les concepts utilisés dans ce projet
 
-  - Être à l'aise avec la ligne de commande
   - Connaître le langage bash
   - Connaître le langage python
   - Connaître la structure de fichier YAML
   - Connaitre les bases du fonctionnement d'Ansible
   - Disposer des droits d'administrateur(root) sur la machine utilisée
+  - Être à l'aise avec la ligne de commande est un plus
 
 ### Materiel
- Voici la configuration materielle recommandée
+ Voici la configuration materielle recommandée pour l'installation du laboratoire de tests
  
   - RAM: 8Go 
   - CPU: (4coeurs/8threads)
   - Stockage: HDD/SDD
-  
+ 
 ## Laboratoire de test
 
-L'architechture pour le test du programme mataf.py a été mise en place a l'aide de l'outil Vagarant, un programme en ligne de commande permettant la création, la gestion, et le management, de machines virtuelles.
+L'architechture mise en place pour le test du programme mataf.py a été construite à l'aide de l'outil Vagarant, un programme en ligne de commande permettant la création, la gestion, et le management, de machines virtuelles.
 
-Ici les liens concernants la mise en place de Vagarant
+Ici les liens concernants la documentation et l'installation de Vagarant
   - Pour consulter la [documentation](https://www.vagrantup.com/docs)
   - Pour [l'installation](https://www.vagrantup.com/docs/installation) du logiciel Vagrant. 
   - Pour le [téléchargement](https://www.vagrantup.com/downloads) de Vagrant. 
 
-Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger vos VM crées par Vagarant.
+Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger les VM crées par Vagarant.
   - Pour installer [Virtualbox](https://www.virtualbox.org/wiki/Downloads) 
   - Pour installer [Vmware Workstation](https://www.vmware.com/fr/products/workstation-player.html)
 
-Une fois notre environnement installé nous devrons le configuré.
+Une fois notre environnement installé il devra être configuré.
+
+
+## Configuration
+
+Pour notre premeière configuration placer/créer vous dans un repertoire de votre système ou nous initialiseront l'environnement Vagrant
 
 Pour télécharger ce dépot:
 ```bash
 git clone https://github.com/Bo3cky/AutomationLab.git
 ```
 
-## Configuration
-
-Pour notre premeière configuration placer/créer vous dans un repertoire de votre système ou nous initialiseront l'environnement Vagrant.
-  - Création du dossier pour notre environnement
+Placez vous dans le répertoire ```Vagrant-settings```
 ```bash
-mkdir ~/Vagrant-lab
-cd ~/Vagrant-lab
-```
-  - Initialistion de l'environnment Vagrant sans spécifier d'image a télécharger
-```bash
-vagrant init
+cd AutomationLab/Vagrant-settings
 ```
 
-Un fichier nommé vagrant file a été créer pour définir la configuration de nos VM dès leurs lancement.
-
-Ouvrez un éditeur de texte puis définnissez les paramètres de votre choix
-
-Afin de simplifier le travail un [script](Vagrant-settings/Vagrantfile) est a votre disposition.
-
-Une fois le fichier éditer ouvrez un terminal (Powershell, Bash..)
 Puis entrez la commande suivante
 ```bash
 vagrant up
@@ -92,7 +81,7 @@ Il est composé de 3 machines:
   - 1 node-manager 
   - 2 nodes-clients
 
-Enregistrer les noms d'hôtes des nodes dans le fichier de résolution /etc/hosts
+Enregistrer les noms d'hôtes des nodes dans le fichier de résolution d'hôtes.
 
 Sur Linux ouvrez un terminal
 ```bash
@@ -107,27 +96,39 @@ echo "192.168.0.10 nodemanager" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.11 node1" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 ```
+
 ### Configuration SSH du node-manager
 
 Pour plus de simplicité pour vos tests je vous recommande de générer un clé ssh puis de l'embarqué sur votre profil utilisateur
 
-Conectez vous au node-manager via ssh avec l'utilisateur vagrant 
+Tout d'abord assurez vous que OpenSSH est installé sur votre machine:
+- Pour [Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
+- Pour [Linux]
+```bash
+sudo apt-get install openssh-server
+```
+
+Conectez vous au node-manager via ssh
+Identifiants:
+  - Utilisateur: vagarant
+  - Mot de passe: vagarant
 ```bash
 ssh vagrant@nodemanager
 ```
-Ajouter les nodes au fichier hosts
+
+Ajouter les nodes-clients au fichier hosts
 ```bash
 sudo su -
 sudo echo "192.168.0.11 node1" >> /etc/hosts
 sudo echo "192.168.0.12 node2" >> /etc/hosts
 ```
 
-Générer d'une clé SSH sans passphrase
+Générer d'une clé SSH sans passphrase (ou avec comme vous voulez)
 ```bash
 ssh-keygen -f ~/.ssh/vagrant -t rsa -b 4096 -N ""
 ```
 
-Copie de la clé publique sur nos node1 et node2
+Copier la clé publique sur nos nodes-clients
 ```bash
 ssh-copy-id -i ~/.ssh/vagrant.pub vagrant@node1
 ssh-copy-id -i ~/.ssh/vagrant.pub vagrant@node2
@@ -142,25 +143,23 @@ Ajout de la clé privé à l'agent d'authentification SSH
 ```bash
 ssh-add ~/.ssh/exemple
 ```
-Il est maintenant possible de s'authentifier directement sur les node1 et node2 sans spécifier de mot de passe
+Il est maintenant possible de s'authentifier directement sur les nodes-clients sans spécifier de mot de passe
 
 
 ## Installation des packages requis
 
-### A changer ###
-[Téléchargez](#laboratoire-de-test) ce dépot sur votre machine hôte
-
-Copier le dossier Python-Project sur le node manager le mot de passe par défaut est vagrant.
+Sur votre machine hôte
+Copier le dossier Python-Project sur le node-manager
 ```bash
 scp -rp Python_Project/ vagrant@nodemanger:/home/vagrant
 ```
 
-Conectez vous au node-manager via ssh avec l'utilisateur vagrant 
+Conectez vous au node-manager 
 ```bash
 ssh vagrant@nodemanager
 ```
 Mettre a jour les dépots APT
-```bah
+```bash
 sudo apt-get update -y && apt-get upgarde -y
 ```
 Installation d'ansible
@@ -182,7 +181,7 @@ Ce package servira a modifier des valeurs dans les fichiers YAML lus par ansible
  
 ### Test de connectivité
 
-Pour vérifier la connectivité et la présence de l'interpréteur python sur les node1 et node2 le module ping (module natif d'Ansible) est utilisé. 
+Pour vérifier la connectivité et la présence de l'interpréteur python sur les node-clients e module ping (module natif d'Ansible) est utilisé. 
 ```
 ansible -i inventaire.ini -m ping all
 ```
@@ -221,12 +220,18 @@ python3 mataf.py --menumode
 ```
 Puis dirigez vous en selectionnant les numéros correspondants au menu d'automatisation désiré.
 
+## A venir
+Mise en place d'un laboratoire de test avec Docker géré par un script BASH voir plus en détails [ici]https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project
+
+[Auteur du script]https://www.youtube.com/channel/UCs_AZuYXi6NA9tkdbhjItHQ
+
 ## Contribution
 
 D'autres idées de fonctionnalités pourront êtres ajouté comme:
  - Scan de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
  - Création/déploiement de certificats  
-Et bien d'autre encore 
+ 
+Les possibilités sont mutiples et personnalisables la seule limite sera votre imagination.
 
 Si ce projet vous intérresse, soyez libre de proposer des améliorations, de donner des conseils, ou même d'apporter votre contribution à ce programme.
 
