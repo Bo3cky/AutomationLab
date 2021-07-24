@@ -14,18 +14,26 @@ OS = platform.system()
                                      #### FONCTIONS DE REDIRECTION VERS LES REPERTOIRES DEDIES ####
 def net_redirect():
       state = sys.argv[3]
-      task = subprocess.run(args="sudo cp /home/vagrant/vagrant  /home/vagrant/{}.copy".format(state), shell= True)
-      task2 = subprocess.run(args="sudo cp /home/vagrant/vagrant.pub /home/vagrant/{}.pub.copy".format(state), shell= True)
-      task3 = subprocess.run(args="sudo mv /home/vagrant/*.copy /home/vagrant/NetworkDirectory/", shell=True)
-      task4 = subprocess.run(args="sudo chown vagrant:vagrant /home/vagrant/NetworkDirectory/{}.copy".format(state), shell=True)
-      task5 = subprocess.run(args="ssh-add /home/vagrant/NetworkDirectory/{}.copy".format(state), shell=True)
-      if task and task2 and task3 and task4 and task5:
-        print("La clé publique et privée de l'utilisa(teur/trice) {} ont été copier et enregistrées dans le repertoire NetworkDirectory/".format(state))
-        print("La clé privéé de l'utilisa(teur/trice) {} a été embarqué sur votre agent ssh".format(state))
+      confssh= "config"
+      nodes = {"1" : "node1", "2" : "node2"}
+      w1 = "\nHost {0}1\n  HostName {1}\n  User {0}\n  IdentityFile /home/vagrant/NetworkDirectory/{0}.copy\n".format(state,nodes["1"])
+      w2 = "\nHost {0}2\n  HostName {1}\n  User {0}\n  IdentityFile /home/vagrant/NetworkDirectory/{0}.copy\n".format(state,nodes["2"])
+      task = subprocess.run(args="sudo mv /home/vagrant/vagrant  /home/vagrant/NetworkDirectory/{}.copy".format(state), shell= True)
+      task2 = subprocess.run(args="sudo mv /home/vagrant/vagrant.pub /home/vagrant/NetworkDirectory/{}.pub.copy".format(state), shell= True)
+      task3 = subprocess.run(args="sudo chown vagrant:vagrant /home/vagrant/NetworkDirectory/{}.copy".format(state), shell=True)
+      if task and task2 and task3:
+        os.chdir("/home/vagrant/.ssh/")
+        with open(confssh , 'a') as cs:
+            cs.write(w1)
+            cs.write(w2)
+        cs.close()
+        print("La clé publique et privée de l'utilisa(teur/trice) {} ont été copiées et enregistrées dans le repertoire NetworkDirectory/".format(state))
+        print("La clé privée de {} a été ajoutée au fichier ~/.ssh/config".format(state))
+        print("Vous pouvez vous connecter au nodes ex: ssh {}1 pour le node1 ou ssh {}2 pour le node2".format(state))
         exit(0)
       else:
         print("la redirection a échouée")
-
+      
 def sys_redirect():
 
       task = subprocess.run(args="mv checksum2.txt checksum3.txt SystemDirectory/", shell=True)
