@@ -27,9 +27,9 @@ def net_redirect():
             cs.write(w1)
             cs.write(w2)
         cs.close()
-        print("La clé publique et privée de l'utilisa(teur/trice) {} ont été copiées et enregistrées dans le repertoire NetworkDirectory/".format(state))
-        print("La clé privée de {} a été ajoutée au fichier ~/.ssh/config".format(state))
-        print("Vous pouvez vous connecter au nodes ex: ssh {}1 pour le node1 ou ssh {}2 pour le node2".format(state))
+        print("La clé publique et privée de l'utilisa(teur/trice) {} ont été copiées et enregistrées dans le repertoire NetworkDirectory/\n".format(state))
+        print("La clé privée de {} a été ajoutée au fichier ~/.ssh/config\n".format(state))
+        print("Vous pouvez vous connecter au nodes avec l'utilisateur {0}\n ex: ssh {0}1 pour le node1 ou ssh {0}2 pour le node2".format(state))
         exit(0)
       else:
         print("la redirection a échouée")
