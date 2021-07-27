@@ -140,7 +140,7 @@ eval `ssh-agent`
 
 Ajout de la clé privé à l'agent d'authentification SSH
 ```bash
-ssh-add ~/.ssh/exemple
+ssh-add ~/.ssh/vagrant
 ```
 Il est maintenant possible de s'authentifier directement sur les nodes-clients sans spécifier de mot de passe
 
