@@ -1,191 +1,183 @@
 # PRESENTATION
-
-L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'administrateur de pouvoir automatiser une ou plusieurs tâches spécifiques sur différents aspects d’un SI:
-- Partie système
-- Partie réseau
-- Partie sécurité
+The main idea of this project is to use the different technologies at our disposal to enable the administrator to automate one or more specific tasks on different aspects of an IS.
 
 
 le programme [mataf.py](https://github.com/Bo3cky/AutomationLab/blob/main/Python_Project/mataf.py) 3 parties :
 
-- NetworkAutomation pour la partie d’administration de tâches réseaux
-- SystemAutomation pour la partie d’administration de tâches systèmes
-- SecurityAutomation pour la partie d’administration des tâches de sécurité
+- NetworkAutomation for the network task administration part
+- SystemAutomation for the system task administration part
+- SecurityAutomation for the administration part of security tasks
 
-Cette image n'est pas réprésentative des options actuellement mises en place dans l'outil.
+This image does not represent the options currently implemented in the tool.
 
-Voici une vue logique des actions possibles:
+Here is a logical view of possible actions:
+
 
 ![IMAGE1](https://github.com/Bo3cky/AutomationLab/blob/main/Images/Vue_logique_actions_script.png)
 
-Chacune des options s'appuient sur plusieurs processus (playbook-ansible, script bash) afin d'effectuer une liste de tâches prédéfinies.
-D’autres mécanismes ou langages de programmation pourront être implémentés.
+Each of the options relies on several processes (playbook-ansible, bash script) to perform a predefined task list. Other mechanisms or programming languages can be implemented.Once the task is executed the result will be stored in a dedicated directory.
 
-Une fois la tâche exécutée le résultat sera stocké dans un répertoire dédié.
+### Knowledge
+Before starting some prerequisites will be necessary to fully understand the concepts used in this project
 
-
-### Connaissances
-Avant de commencer quelques prérequis seront nécéssaires afin de bien comprendre les concepts utilisés dans ce projet
-
-  - Connaître le langage bash
-  - Connaître le langage python
-  - Connaître la structure de fichier YAML
-  - Connaitre les bases du fonctionnement d'Ansible
-  - Disposer des droits d'administrateur(root) sur la machine utilisée
-  - Être à l'aise avec la ligne de commande est un plus
+- Knowledge of bash language
+- Know the python language
+- Know the YAML file structure
+- Know the basics of how Ansible works
+- Have administrator(root) rights on the machine used
+- Being comfortable with the command line is a plus
 
 ### Materiel
- Voici la configuration matérielle recommandée pour l'installation du laboratoire de tests
+Here is the recommended hardware configuration for the test lab installation
+
+- RAM: 8GB
+- CPU: (4cores/8threads)
+- Storage: HDD/SDD
  
-  - RAM: 8Go 
-  - CPU: (4coeurs/8threads)
-  - Stockage: HDD/SDD
- 
-## Laboratoire de test
+## Test Lab
 
-L'architecture mise en place pour le test du programme mataf.py a été construite à l'aide de l'outil Vagrant, un programme en ligne de commande permettant la création, la gestion, et le management, de machines virtuelles.
+The architecture set up for the mataf.py program test was built using the Vagrant tool, a command-line program that allows the creation, management, and management of virtual machines.
 
-Ici les liens concernants la documentation et l'installation de Vagrant
-  - Pour consulter la [documentation](https://www.vagrantup.com/docs)
-  - Pour [l'installation](https://www.vagrantup.com/docs/installation) du logiciel Vagrant. 
-  - Pour le [téléchargement](https://www.vagrantup.com/downloads) de Vagrant. 
+Here are the links concerning the documentation and installation of Vagrant
+- To consult the [documentation](https://www.vagrantup.com/docs)
+- For [installation](https://www.vagrantup.com/docs/installation) of the Vagrant software.
+- For [download](https://www.vagrantup.com/downloads) from Vagrant.
 
-Il faudra également télécharger un hyperviseur de type 2  (ex:Virtualbox, VmwareWorkstation) pour héberger les VM crées par Vagrant.
-  - Pour installer [Virtualbox](https://www.virtualbox.org/wiki/Downloads) 
-  - Pour installer [Vmware Workstation](https://www.vmware.com/fr/products/workstation-player.html)
+You will also need to download a type 2 hypervisor (e.g., Virtualbox, VmwareWorkstation) to host VMs created by Vagrant.
+- To install [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+- To install [Vmware Workstation](https://www.vmware.com/fr/products/workstation-player.html)
 
-Une fois notre environnement installé il devra être configuré.
 
 
 ## Configuration
 
-Pour télécharger ce dépot:
+For upload this repository:
 ```bash
 git clone https://github.com/Bo3cky/AutomationLab.git
 ```
 
-Placez vous dans le répertoire ```Vagrant-settings```
+Place yourself in this directory ```Vagrant-settings```
 ```bash
 cd AutomationLab/Vagrant-settings
 ```
 
-Puis entrez la commande suivante
+Then enter the following command
 ```bash
 vagrant up
 ```
-Cette commande permet de configurer et de lancer les VM en s'appuyant sur le contenu du fichier vagrantfile.
+This command allows you to configure and launch VMs based on the contents of the vagrantfile.
 
-Le premier lancement sera plus long que les suivants, c'est normal car les images des VM n'ont pas encore été télechargées
+The first launch will be longer than the following ones, this is normal because the VM images have not yet been uploaded
 
-Si l'opération se déroule sans problèmes notre laboratoire est prêt a étre utilisé.
-Il est composé de 3 machines:
+If the operation goes smoothly our laboratory is ready to be used.
+It is composed of 3 machines:
   - 1 node-manager 
-  - 2 nodes-clients
+  - 2 client nodes
 
-Enregistrer les noms d'hôtes des nodes dans le fichier de résolution d'hôtes.
+Save the host names of the nodes in the host resolution file.
 
-Sur Linux ouvrez un terminal
+On Linux open a terminal
 ```bash
 sudo su -
 sudo echo "192.168.0.10 nodemanager" >> /etc/hosts
 sudo echo "192.168.0.11 node1" >> /etc/hosts
 sudo echo "192.168.0.12 node2" >> /etc/hosts
 ```
-Sur Windows 10 ouvrez un terminal powershell en tant qu'administrateur
+On Windows 10 open a powershell terminal as administrator
 ```powershell
 echo "192.168.0.10 nodemanager" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.11 node1" >> 'C:\Windows\System32\drivers\etc\hosts'
 echo "192.168.0.12 node2" >> 'C:\Windows\System32\drivers\etc\hosts'
 ```
 
-### Configuration SSH du node-manager
+### SSH configuration on node-manager
 
-Pour plus de simplicité pour vos tests je vous recommande de générer un clé ssh puis de l'embarqué sur votre agent-ssh
+For simplicity for your tests I recommend generating an ssh key then embedded on your ssh-agent.
+Or create a file named config in your ~/.ssh/ folder containing connections parameters.
 
 Tout d'abord assurez vous que OpenSSH est installé sur votre machine hôte:
-- Pour [Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
-- Pour [Linux]
+- For [Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
+- For [Linux]
 ```bash
 sudo apt-get install openssh-server
 ```
 
-Conectez vous au node-manager via ssh.
+Connect to the node-manager via ssh
 
-Identifiants:
-  - Utilisateur: vagrant
-  - Mot de passe: vagrant
+Credentials:
+  - User: vagrant
+  - Passowrd: vagrant
 ```bash
 ssh vagrant@nodemanager
 ```
 
-Ajouter les nodes-clients au fichier hosts.
+Add the clients on the host file.
 ```bash
 sudo su -
 sudo echo "192.168.0.11 node1" >> /etc/hosts
 sudo echo "192.168.0.12 node2" >> /etc/hosts
 ```
 
-Générer d'une clé SSH sans passphrase (ou avec comme vous voulez).
+Generate a ssh key without a passphrasse (or with as you want).
 ```bash
 ssh-keygen -f ~/.ssh/vagrant -t rsa -b 4096 -N ""
 ```
 
-Copier la clé publique sur nos nodes-clients
+Copy the public key on the clients
 ```bash
 ssh-copy-id -i ~/.ssh/vagrant.pub vagrant@node1
 ssh-copy-id -i ~/.ssh/vagrant.pub vagrant@node2
 ```
 
-Démarrage de l'agent ssh (si inactif)
+ssh agent startup (if inactive)
 ``` bash
 eval `ssh-agent`
 ```
-
-Ajout de la clé privé à l'agent d'authentification SSH
+Adding the Private Key to the SSH Authentication Agent
 ```bash
 ssh-add ~/.ssh/vagrant
 ```
-Il est maintenant possible de s'authentifier directement sur les nodes-clients sans spécifier de mot de passe
+It is now possible to authenticate directly on customers without specifying a password
 
-## Installation des packages requis
+## Install requierd packages
 
-Sur votre machine hôte copiez le dossier Python-Project sur le node-manager
+On your host machine copy the folder Python-Project on the node-manager
 ```bash
 scp -rp Python_Project/ vagrant@nodemanger:/home/vagrant
 ```
 
-Conectez vous au node-manager 
+Connect to the node-manager 
 ```bash
 ssh vagrant@nodemanager
 ```
-Mettre a jour les dépots APT
+Update APT repositories
 ```bash
 sudo apt-get update -y && apt-get upgarde -y
 ```
-Installation d'ansible
 
+Installation of ansible
 ```bash
 sudo apt-get install ansible -y
 ```
-### Python et pip
+### Python and pip
 
-Installation et mise a jour de pip
+Installation and updating of pip
 ```bash
 sudo apt-get install pip -y && pip install --upgrade pip
 ```
-Installation du package [ruamel.yaml](https://github.com/commx/ruamel-yaml)
+Package installation [ruamel.yaml](https://github.com/commx/ruamel-yaml)
 ```bash
 pip install ruamel.yaml
 ```
-Ce package servira a modifier des valeurs dans les fichiers YAML lus par ansible
+This package will be used to change values in YAML files read by ansible
  
 ### Test de connectivité
 
-Pour vérifier la connectivité et la présence de l'interpréteur python sur les nodes-clients le module ping (module natif d'Ansible) est utilisé. 
+To check connectivity and the presence of the python interpreter on client nodes the ping module (native Ansible module) is used. 
 ```
 ansible -i inventaire.ini -m ping all
 ```
-Voici la réponse attendue
+Here is the expected answer
 ```json
 node2 | SUCCESS => {
     "ansible_facts": {
@@ -202,38 +194,38 @@ node1 | SUCCESS => {
     "ping": "pong"
 }
 ```
-l'infrastructure est prête à l'emploi
+Our infrastructure is ready for use
 
-## Exemples d'utilisation
+## Usage 
 
-Deux modes d'utilisation possibles pour l'outil mataf.py
+Two possible modes of use for the mataf.py tool
 
-- En ligne de commande
+- Command line 
 ```bash
 # Exemple d'utilisation du module de vérification d'intégrité du fichier sshd_config
 python3 mataf.py -c -f /etc/ssh/sshd_config
 ```
-- Via le menu intéractif en selectionnant les options affichées
+- Via the Interest menu by selecting the options displayed
 ```bash
 # Entrer dans le menu depuis la ligne de commande
 python3 mataf.py --menumode
 ```
-Puis dirigez vous en selectionnant les numéros correspondants au menu d'automatisation désiré.
+Then navigate by selecting the corresponding numbers from the desired automation menu.
 
-## A venir...
-Mise en place d'un laboratoire de test avec docker géré par un script bash.
-Voir plus en détails [ici](https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project)
+## Coming soon...
+Setting up a test lab with docker managed by a bash script.
+More details [here](https://github.com/Bo3cky/AutomationLab/blob/main/Docker-Lab-Project)
 
-Implémentation d'une assistance vocale dans le programme mataf.py (lancement et planification de tâches par commandes vocales ...)
+Implementation of voice assistance in the mataf.py program (launch and scheduling of tasks by voice commands, etc.)
 
-## Contribuer à MATAF
+## Contribute to MATAF
 
-D'autres fonctionnalités pourront être ajoutées comme:
- - Mappage de l'infrastructure existante et enregistrement des données (nom d'hote, IP, utilisateur... ) dans un inventaire GLPI/JIRA
- - Création/déploiement de certificats de sécurité 
- 
-Les possibilités sont multiples et personnalisables la seule limite sera votre imagination.
+Other features may be added such as:
+- Mapping of the existing infrastructure and recording of data (hostname, IP, user...) in a GLPI/JIRA inventory
+- Creation/deployment of security certificates
 
-Si ce projet vous intérresse, soyez libre de proposer des améliorations, de donner des conseils, ou même d'apporter votre contribution à ce programme.
+The possibilities are multiple and customizable the only limit will be your imagination.
 
-A bientôt Sur GitHub!
+If you are interested in this project, be free to suggest improvements, provide advice, or even make your contribution to this program.
+
+See you soon on GitHub!
