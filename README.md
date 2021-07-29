@@ -2,7 +2,7 @@
 The main idea of this project is to use the different technologies at our disposal to enable the administrator to automate one or more specific tasks on different aspects of an IS.
 
 
-le programme [mataf.py](https://github.com/Bo3cky/AutomationLab/blob/main/Python_Project/mataf.py) 3 parties :
+The program [mataf.py](https://github.com/Bo3cky/AutomationLab/blob/main/Python_Project/mataf.py) 3 parts:
 
 - NetworkAutomation for the network task administration part
 - SystemAutomation for the system task administration part
