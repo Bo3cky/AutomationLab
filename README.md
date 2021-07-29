@@ -1,6 +1,9 @@
 # PRESENTATION
 
-L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'administrateur de pouvoir automatiser une ou plusieurs tâches spécifiques sur différents aspects d’un SI Systèmes, Réseaux, Sécurité.
+L’idée principale de ce projet est d'utiliser les différentes technologies à notre disposition pour permettre à l'administrateur de pouvoir automatiser une ou plusieurs tâches spécifiques sur différents aspects d’un SI:
+- Partie système
+- Partie réseau
+- Partie sécurité
 
 
 le programme [mataf.py](https://github.com/Bo3cky/AutomationLab/blob/main/Python_Project/mataf.py) 3 parties :
